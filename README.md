@@ -1,0 +1,2 @@
+# EasyLicense
+EasyLicense rocks!
