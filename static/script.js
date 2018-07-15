@@ -14,24 +14,13 @@ auth = firebase.auth(app);
 db = firebase.database(app);
 databaseRef = db.ref();
 
-function StudentSignup(email,password,first_name,last_name,age){
-    if (auth.currentUser==null){
-        auth.createUserWithEmailAndPassword(email,password);
-        var student = {
-            first_name: first_name,
-            last_name: last_name,
-            age: age,
-            hours: 0,
-            lessons: 0,
-            money_paid: 0,
-            total_money: 0
-        };
-        databaseRef.child("students").child(auth.currentUser.uid).set(student);
-        console.log(auth.currentUser.uid);
-        console.log(auth.currentUser.email);}
-    else{
-        console.log(auth.currentUser.email+" is signed in!");
-    }
+function signup(email,password,first_name,last_name,age){
+    if (auth.currentUser!=null){
+        auth.signOut();
+    }		
+    auth.createUserWithEmailAndPassword(email,password);
+    console.log(auth.currentUser.uid);
+    console.log(auth.currentUser.email);
 }
 
 function signin(email,password){
@@ -40,4 +29,28 @@ function signin(email,password){
         console.log(auth.currentUser.uid);
         console.log(auth.currentUser.email);
     }
+}
+
+function studentInfo(first_name,last_name,age){
+    var student = {
+        first_name: first_name,
+        last_name: last_name,
+        age: age,
+        hours: 0,
+        lessons: 0,
+        money_paid: 0,
+        total_money: 0
+    };
+    databaseRef.child("students").child(auth.currentUser.uid).set(student);
+}
+
+function teacherInfo(_fname,_lname,_cost){
+    var teacher = {
+        _fname: _fname,
+        _lname: _lname,
+        _cost: _cost,
+        _numOfRates: 0,
+        rating: -1
+    };
+    databaseRef.child("teachers").child(auth.currentUser.uid).set(teacher);
 }
