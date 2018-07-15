@@ -11,4 +11,7 @@ console.log(app.options.credential === config.credential);  // true
 console.log(app.options.databaseURL === config.databaseURL);  // true
 
 auth = firebase.auth(app);
-auth.createUserWithEmailAndPassword('first@website.com','saedsaed');
+
+function signup(email,password){
+    auth.createUserWithEmailAndPassword(email,password);
+}
